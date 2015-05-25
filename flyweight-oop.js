@@ -1,5 +1,7 @@
 // Flyweight Pattern (OOP)
-function GlyphContext(row, column) {
+
+// Represents the "extrinsic state" of the Character class - the part that cannot be shared
+function Location(row, column) {
     var _this = new Object();
 
     // public members
@@ -9,19 +11,21 @@ function GlyphContext(row, column) {
     return _this;
 }
 
+// Represents the "intrinsic state" of the Character class
 function Character(char) {
     var _this = new Object();
 
     // public members
     _this.char = char;
 
-    _this.draw = function(glyphContext) {
+    _this.draw = function(location) {
         return ' ' + glyphContext.row + glyphContext.column + ' ' + _this.char;
     };
 
     return _this;
 }
 
+// Returns a shared Character class, optionally creating it if it doesn't already exist
 function CharacterFactory() {
     var _this = new Object();
 
@@ -72,7 +76,7 @@ for (var i = 0; i < documentRows.length; ++i) {
     output = '';
 
     for (var j = 0; j < documentRows[i].length; ++j) {
-        output += documentRows[i][j].draw(new GlyphContext(i, j));
+        output += documentRows[i][j].draw(new Location(i, j));
     }
     console.log(output);
 }
