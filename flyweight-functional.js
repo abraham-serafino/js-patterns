@@ -1,15 +1,20 @@
 // Flyweight Pattern (functional)
+
+// Instead of a "Factory", we use a function to retrieve shared Objects
 var createCharacter = (function () {
 
     var characters = {};
 
+    // this behavior is shared between the objects
     function draw (glyphContext) {
         return ' ' + glyphContext.row + glyphContext.column + ' ' + this.character;
     }
 
+    // the returned function either creates a new object, or returns an existing shared object
     return function (c) {
 
        if (!characters[c]) {
+           // the shared object consists of intrinsic state (the character code) and a behavior (the draw "method")
            characters[c] = { draw: draw, character: c };
        }
 
