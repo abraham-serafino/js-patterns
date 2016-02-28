@@ -1,0 +1,2 @@
+
+HeadlightAssembly = function() { }
