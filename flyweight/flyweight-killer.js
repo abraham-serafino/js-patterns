@@ -6,7 +6,7 @@
  * with the data they operate on - instead we can hand each function a rich "configuration object".
  *
  * If you ask yourself which Sacrement of Good Design this violates, you will doubtless remember that all code
- * should be "modular" - but this is already being accomplished in Java's Spring Framework and J2EE, without 
+ * should be "modular" - but this is already being violated in Java's Spring Framework and J2EE, without 
  * the need for data-and-method-bundles (more commonly referred to as classes). J2EE and Spring accomplish the same
  * modularity by using "stateless services," (which are really just a glorified collection of related functions). 
  * These services operate on "model objects" (which are really just glorified named arrays) that need to be passed
@@ -16,7 +16,6 @@
  * a Configuration Object.
  */ 
 
-// The CharacterService module can be used by any framework that supports CommonJS
 var CharacterService = function () {
     return {
 
@@ -58,4 +57,4 @@ var CharacterService = function () {
         console.log(output);
     }
 
-})((CharacterService)());
+})(CharacterService());
