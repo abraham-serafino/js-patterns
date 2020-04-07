@@ -1,46 +1,47 @@
-var Customer = function() {
+function Customer() {
 
-	var state = {
+	let state = {
 		key: new Date(),
 		name: 'Bob',
 		age: 27,
 		elligibleForDiscount: false
-	};
+	}
 
-	this.changeName = function(name) {
-		state.name = name;
-	};
+	function changeName(name) {
+		state.name = name
+	}
 
-	this.getName = function() {
-		return state.name;
-	};
+	function getName() {
+		return state.name
+	}
 
-	this.getMemento = function() {
-		var originalState = _.clone(state);
+	function getMemento() {
+		const originalState = { ... state }
 
 		return function unlockMemento(key) {
-
 			if (key === state.key) {
-				return originalState;
+				return originalState
 			}
 
-			throw 'State can only be restored by the originator.';
-		};
-	};
+			throw "State can only be restored by the originator."
+		}
+	}
 
-	this.restoreState = function(unlockMemento) {
-		state = unlockMemento(state.key);
-	};
-};
+	function restoreState(unlockMemento) {
+		state = unlockMemento(state.key)
+	}
 
-var bob = new Customer();
-console.log( bob.getName() ); // "Bob"
-var memento = bob.getMemento();
-bob.setName('Bill');
-console.log( bob.getName() ); // "Bill"
+	return { changeName, getName, getMemento, restoreState }
+}
 
-console.log( memento().getName() );
-		// "State can only be restored by the originator."
+const bob = Customer()
+console.log(bob.getName()) // "Bob"
+const memento = bob.getMemento()
+bob.changeName("Bill")
+console.log(bob.getName()) // "Bill"
 
-bob.restoreState(memento);
-console.log( bob.getName() ); // "Bob"
+console.log(memento().getName())
+	// "State can only be restored by the originator."
+
+bob.restoreState(memento)
+console.log(bob.getName()) // "Bob"
